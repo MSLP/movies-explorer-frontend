@@ -1,0 +1,12 @@
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.button__promo {
+  color: #fff;
+  text-decoration: underline;
+  padding: 0 20px;
+}

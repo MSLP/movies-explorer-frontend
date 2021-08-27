@@ -1,0 +1,32 @@
+.promo {
+  background-color: #f3c1f8;
+}
+
+.promo__container {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1280px;
+  padding: 184px 0 224px 0;
+  background-image: url('../../images/promo-logo.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.promo__title {
+  width: 55%;
+  margin: 0 auto;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.promo__nav {
+  background-color: #000;
+  padding: 24px 0;
+}
+
+.promo__nav_buttons {
+  width: 26%;
+  margin: 0 auto;
+}
