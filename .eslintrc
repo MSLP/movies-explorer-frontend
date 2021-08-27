@@ -1,10 +1,11 @@
 {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
+        "node": true
     },
     "extends": [
-        "airbnb-base"
+        "airbnb"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -13,7 +14,15 @@
         "ecmaVersion": 12,
         "sourceType": "module"
     },
+    "plugins": [
+        "react"
+    ],
     "rules": {
-        "no-underscore-dangle": "off"
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "react/state-in-constructor": "off",
+        "react/jsx-uses-react": "off",
+        "react/react-in-jsx-scope": "off",
+        "no-underscore-dangle": "off",
+        "react/jsx-props-no-spreading": 0
     }
 }
