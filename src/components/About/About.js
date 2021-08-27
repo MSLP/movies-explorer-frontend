@@ -1,9 +1,10 @@
 import './About.css';
+import Title from '../Title/Title';
 
 export default function About() {
   return (
     <div className="about">
-      <h2 className="about__header">About</h2>
+      <Title>About</Title>
       <div className="about__grid">
         <div>
           <h2 className="about__title">Final project included 5 milestones</h2>
