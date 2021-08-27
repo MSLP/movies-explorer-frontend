@@ -7,7 +7,7 @@ export default function Promo() {
       <header />
       <div className="promo">
         <div className="promo__container">
-          <h1 className="promo__title">Final project by studen of Frontend engineering faculty.</h1>
+          <h1 className="promo__title">Final project by student of Frontend engineering faculty.</h1>
         </div>
       </div>
       <div className="promo__nav">
