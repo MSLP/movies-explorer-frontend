@@ -1,17 +1,9 @@
-import Promo from '../Promo/Promo';
-import About from '../About/About';
-import Tech from '../Tech/Tech';
-import Student from '../Student/Student';
-import Footer from '../Footer/Footer';
+import LandingPage from '../../pages/LandingPage';
 
 export default function App() {
   return (
     <>
-      <Promo />
-      <About />
-      <Tech />
-      <Student />
-      <Footer />
+      <LandingPage />
     </>
   );
 }

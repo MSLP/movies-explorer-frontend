@@ -8,7 +8,7 @@ export default function Header() {
       <img src={logo} alt="logo" className="header__logo" />
       <div>
         <Button className="button__header_sign">Sign Up</Button>
-        <Button className="button__header_sign">Sign In</Button>
+        <Button className="button__header_sign button__header_sign_active">Sign In</Button>
       </div>
     </div>
   );
