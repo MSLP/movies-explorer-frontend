@@ -1,7 +1,7 @@
 .header {
   width: 90%;
   margin: 0 auto;
-  padding-top: 20px;
+  padding: 20px 0 18px 0;
   display: flex;
   justify-content: space-between;
 }
@@ -9,4 +9,14 @@
 .header__logo {
   width: 38px;
   height: 38px;
+}
+
+.header__account {
+  margin: 0 auto;
+  display: inline;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.15;
+  padding: 0 3px;
+  vertical-align: middle;
 }

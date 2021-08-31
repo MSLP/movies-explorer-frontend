@@ -28,6 +28,27 @@ button {
   color: #fff;
 }
 
+.button__navigation {
+  padding: 0 8px;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.button__navigation_active {
+  font-weight: 500;
+}
+
+.button__navigation_main {
+  display: none;
+}
+
+.button__account {
+  border: 2px solid rgba(170, 170, 170, 0.2);
+  border-radius: 50px;
+
+}
+
 @media (max-width: 425px) {
   .button__nav {
     padding: 0 12px;
@@ -39,5 +60,9 @@ button {
     font-size: 10px;
     line-height: 1.6;
     margin-left: 14px;
+  }
+
+  .button__navigation_main {
+    display: inline-block;
   }
 }
