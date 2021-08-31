@@ -23,16 +23,6 @@
   letter-spacing: -0.04em;
 }
 
-.promo__nav {
-  background-color: #000;
-  padding: 24px 0;
-}
-
-.promo__nav_buttons {
-  width: 300px;
-  margin: 0 auto;
-}
-
 @media (max-width: 768px) {
   .promo__title {
     width: 95%;
@@ -46,9 +36,5 @@
 
   .promo__title {
     font-size: 31px;
-  }
-
-  .promo__nav_buttons {
-    width: 220px;
   }
 }

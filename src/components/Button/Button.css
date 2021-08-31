@@ -5,7 +5,7 @@ button {
   outline: none;
 }
 
-.button__promo {
+.button__nav {
   color: #fff;
   text-decoration: underline;
   padding: 0 20px;
@@ -29,7 +29,7 @@ button {
 }
 
 @media (max-width: 425px) {
-  .button__promo {
+  .button__nav {
     padding: 0 12px;
     font-size: 11px;
     line-height: 1.45;
