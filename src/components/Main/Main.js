@@ -1,16 +1,16 @@
 import Promo from '../Promo/Promo';
-import About from '../About/About';
-import Tech from '../Tech/Tech';
-import Student from '../Student/Student';
+import AboutProject from '../AboutProject/AboutProject';
+import Techs from '../Techs/Techs';
+import AboutMe from '../AboutMe/AboutMe';
 import Footer from '../Footer/Footer';
 
 export default function Main() {
   return (
     <>
       <Promo />
-      <About />
-      <Tech />
-      <Student />
+      <AboutProject />
+      <Techs />
+      <AboutMe />
       <Footer />
     </>
   );

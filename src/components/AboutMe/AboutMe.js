@@ -1,9 +1,9 @@
-import './Student.css';
+import './AboutMe.css';
 import student from '../../images/student.jpeg';
 import Title from '../Title/Title';
-import arrow from '../../images/arrow.svg';
+import Portfolio from '../Portfolio/Portfolio';
 
-export default function Student() {
+export default function AboutMe() {
   return (
     <div className="student">
       <Title>Student</Title>
@@ -21,27 +21,7 @@ export default function Student() {
         </div>
         <img src={student} alt="student" className="student__photo" />
       </div>
-      <h4 className="student__portfolio">Portfolio</h4>
-      <ul className="student__list">
-        <li className="student__item">
-          <a className="student__link" href="https://github.com/MSLP/how-to-learn" target="_blank" rel="noopener noreferrer">
-            Static web-page
-            <img src={arrow} alt="arrow" />
-          </a>
-        </li>
-        <li className="student__item">
-          <a className="student__link" href="https://github.com/MSLP/russian-travel" target="_blank" rel="noopener noreferrer">
-            Adaptive web-page
-            <img src={arrow} alt="arrow" />
-          </a>
-        </li>
-        <li className="student__item">
-          <a className="student__link" href="https://github.com/MSLP/react-mesto-api-full" target="_blank" rel="noopener noreferrer">
-            Single-page application
-            <img src={arrow} alt="arrow" />
-          </a>
-        </li>
-      </ul>
+      <Portfolio />
     </div>
   );
 }

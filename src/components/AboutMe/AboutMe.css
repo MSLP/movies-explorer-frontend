@@ -50,41 +50,7 @@
   padding: 66px 0 0 270px;
 }
 
-.student__portfolio {
-  margin: 0;
-  padding: 100px 0 30px 0;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 1.1;
-  color: #a0a0a0;
-}
 
-.student__list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.student__item {
-  border-bottom: 1px solid #e8e8e8;
-  padding: 20px 0 19px 0;
-}
-
-.student__item:last-child {
-  padding-bottom: 0;
-  border: 0;
-}
-
-.student__link {
-  display: flex;
-  justify-content: space-between;
-  text-decoration: none;
-  color: #000;
-  font-weight: 400;
-  font-size: 30px;
-  line-height: 1.6;
-  letter-spacing: -0.04em;
-}
 
 @media (max-width: 1024px) {
   .student__photo {
@@ -118,15 +84,6 @@
     width: 255px;
     height: 307px;
     padding-left: 50px;
-  }
-
-  .student__portfolio {
-    padding-top: 90px;
-  }
-
-  .student__link {
-    font-size: 28px;
-    line-height: 1.8;
   }
 }
 
@@ -170,16 +127,5 @@
 
   .student__social {
     padding-right: 26px;
-  }
-
-  .student__portfolio {
-    padding: 70px 0 40px 0;
-    font-size: 14px;
-    line-height: 1.4;
-  }
-
-  .student__link {
-    font-size: 18px;
-    line-height: 1.55;
   }
 }

@@ -1,7 +1,7 @@
-import './About.css';
+import './AboutProject.css';
 import Title from '../Title/Title';
 
-export default function About() {
+export default function AboutProject() {
   return (
     <div className="about">
       <Title>About</Title>
