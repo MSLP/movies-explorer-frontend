@@ -19,7 +19,7 @@ export default function Header({ isMain, isMovies }) {
       {isMovies ? (
         <>
           <Navigation />
-          <Button className="button__account">
+          <Button className="button__account button__account_header">
             <img className="header__account" src={account} alt="account" />
             <p className="header__account">Account</p>
           </Button>
