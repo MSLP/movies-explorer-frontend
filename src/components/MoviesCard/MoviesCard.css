@@ -1,0 +1,59 @@
+.movie {
+  max-width: 364px;
+  background-color: #fdfdfd;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, .08);
+}
+
+.movie__header {
+  padding: 14px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.movie__title {
+  margin: 0;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+.movie__duration {
+  margin: 0;
+  padding-top: 9px;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1.2;
+  color: #a0a0a0;
+}
+
+.movie__button {
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 36px;
+  background-color: #f9f9f9;
+  background-image: url('../../images/save.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.movie__button_active {
+  background-color: #000;
+  background-image: url('../../images/save_active.svg');
+}
+
+.movie__button_delete {
+  background-image: url('../../images/save_delete.svg');
+}
+
+@media (max-width: 768px) {
+  .movie {
+    max-width: 339px;
+  }
+}
+
+@media (max-width: 425px) {
+  .movie {
+    max-width: 300px;
+  }
+}
