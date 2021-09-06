@@ -1,5 +1,5 @@
 .movie {
-  max-width: 364px;
+  min-width: 364px;
   background-color: #fdfdfd;
   box-shadow: 0 4px 30px rgba(0, 0, 0, .08);
 }
@@ -46,14 +46,20 @@
   background-image: url('../../images/save_delete.svg');
 }
 
+.movie__img {
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 @media (max-width: 768px) {
   .movie {
-    max-width: 339px;
+    min-width: 339px;
   }
 }
 
 @media (max-width: 425px) {
   .movie {
-    max-width: 300px;
+    min-width: 288px;
   }
 }

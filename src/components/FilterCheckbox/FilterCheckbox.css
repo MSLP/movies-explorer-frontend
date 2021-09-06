@@ -1,7 +1,6 @@
 .checkbox {
   display: flex;
   padding: 26px 0 43px 0;
-  border-bottom: 1.5px solid rgba(170, 170, 170, .2);
 }
 
 .checkbox__container {

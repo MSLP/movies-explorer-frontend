@@ -12,7 +12,7 @@ export default function MoviesCard() {
         </div>
         <Button className="movie__button" />
       </div>
-      <img src={movie} alt="thumbnail" />
+      <img className="movie__img" src={movie} alt="thumbnail" />
     </div>
   );
 }
