@@ -1,0 +1,16 @@
+.movies__more-container {
+  width: 90%;
+  margin: 0 auto;
+  padding: 50px 0 80px 0;
+}
+
+.movies__more-button {
+  width: 100%;
+  background-color: #F9F9F9;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.2;
+  text-align: center;
+  padding: 11px 0 9px 0;
+  cursor: pointer;
+}
