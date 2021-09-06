@@ -16,7 +16,7 @@ export default function MobileNav() {
               <ul className="navigation__list">
                 <li className="navigation__item"><a className="navigation__link" href="/">Main</a></li>
                 <li className="navigation__item"><a className="navigation__link" href="/movies">Movies</a></li>
-                <li className="navigation__item"><a className="navigation__link" href="/saved">Saved movies</a></li>
+                <li className="navigation__item"><a className="navigation__link" href="/saved-movies">Saved movies</a></li>
               </ul>
               <Button className="button__account button__account_nav">
                 <img className="header__account" src={account} alt="account" />
