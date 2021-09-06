@@ -43,6 +43,7 @@
 }
 
 .movie__button_delete {
+  background-color: #f9f9f9;
   background-image: url('../../images/save_delete.svg');
 }
 
