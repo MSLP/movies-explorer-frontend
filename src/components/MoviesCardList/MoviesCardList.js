@@ -6,9 +6,9 @@ export default function MoviesCardList() {
     <div className="movies">
       <MoviesCard />
       <MoviesCard />
+      <MoviesCard isActive />
       <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
+      <MoviesCard isActive />
       <MoviesCard />
       <MoviesCard />
     </div>
