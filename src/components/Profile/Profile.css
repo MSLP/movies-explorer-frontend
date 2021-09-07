@@ -58,3 +58,38 @@
   color: #ff4062;
   text-align: center;
 }
+
+@media (max-width: 768px) {
+  .profile {
+    width: 53%;
+    padding: 236px 0 269px 0;
+  }
+
+  .profile__title {
+    padding-bottom: 79px;
+  }
+
+  .profile__edit {
+    padding-top: 193px;
+  }
+}
+
+@media (max-width: 425px) {
+  .profile {
+    width: 81%;
+    padding: 70px 0 40px 0;
+  }
+
+  .profile__title {
+    padding-bottom: 63px;
+  }
+
+  .profile__edit {
+    padding-top: 362px;
+    font-size: 12px;
+  }
+
+  .profile__logout {
+    font-size: 12px;
+  }
+}
