@@ -3,6 +3,7 @@ import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import NotFound from '../NotFound/NotFound';
+import Profile from '../Profile/Profile';
 
 export default function App() {
   return (
@@ -16,7 +17,9 @@ export default function App() {
       <Route path="/saved-movies">
         <SavedMovies />
       </Route>
-      <Route path="/profile" />
+      <Route path="/profile">
+        <Profile />
+      </Route>
       <Route path="*">
         <NotFound />
       </Route>

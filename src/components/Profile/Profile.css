@@ -1,0 +1,60 @@
+.profile {
+  width: 32%;
+  margin: 0 auto;
+  padding: 74px 0 70px 0;
+}
+
+.profile__title {
+  margin: 0;
+  padding-bottom: 106px;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.profile__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile__label {
+  padding: 17px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 1.2;
+}
+
+.profile__label:first-of-type {
+  border-bottom: 1px solid rgba(232, 232, 232, 0.4);
+}
+
+.profile__input {
+  border: 0;
+  background-color: transparent;
+  text-align: right;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1.2;
+}
+
+.profile__edit {
+  padding: 203px 0 16px 0;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.profile__logout {
+  width: 100%;
+  padding: 0;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.2;
+  color: #ff4062;
+  text-align: center;
+}

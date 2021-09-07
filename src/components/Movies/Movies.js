@@ -8,7 +8,7 @@ import Button from '../Button/Button';
 export default function Movies() {
   return (
     <>
-      <Header isMovies />
+      <Header />
       <Search />
       <MoviesCardList />
       <div className="movies__more-container">
