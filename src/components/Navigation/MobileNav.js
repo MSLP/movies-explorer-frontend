@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import Button from '../Button/Button';
 import account from '../../images/account.svg';
 
 export default function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
+  const history = useHistory();
   return (
     <>
       {!isOpen ? (<Button className="navigation__burger" onClick={() => setIsOpen(true)} />)
@@ -19,7 +20,7 @@ export default function MobileNav() {
                 <li className="navigation__item"><NavLink activeClassName="navigation__link_active" className="navigation__link" to="/movies">Movies</NavLink></li>
                 <li className="navigation__item"><NavLink activeClassName="navigation__link_active" className="navigation__link" to="/saved-movies">Saved movies</NavLink></li>
               </ul>
-              <Button className="header__account-btn header__account-btn_nav">
+              <Button onClick={() => history.push('/profile')} className="header__account-btn header__account-btn_nav">
                 <img className="header__account" src={account} alt="account" />
                 <p className="header__account">Account</p>
               </Button>

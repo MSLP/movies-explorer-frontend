@@ -9,7 +9,7 @@ export default function SignForm({
 }) {
   return (
     <div className="sign">
-      <img src={logo} alt="logo" className="sign__logo" />
+      <Link className="sign__logo" to="/"><img src={logo} alt="logo" /></Link>
       <h2 className="sign__title">{title}</h2>
       <form>
         <label className="sign__label" htmlFor="name">
