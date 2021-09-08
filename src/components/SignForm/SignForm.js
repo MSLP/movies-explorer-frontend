@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './SignForm.css';
 import logo from '../../images/logo.svg';
@@ -27,8 +28,8 @@ export default function SignForm({
       </form>
       <p className="sign__text">
         {text}
-        {isRegister ? <a className="sign__link" href="/signin">{link}</a>
-          : <a className="sign__link" href="/signup">{link}</a>}
+        {isRegister ? <Link className="sign__link" to="/signin">{link}</Link>
+          : <Link className="sign__link" to="/signup">{link}</Link>}
       </p>
     </div>
   );
