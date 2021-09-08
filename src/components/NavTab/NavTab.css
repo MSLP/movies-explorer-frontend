@@ -17,6 +17,10 @@
   line-height: 1.25;
 }
 
+.nav__button:hover {
+  opacity: .8;
+}
+
 @media (max-width: 425px) {
   .nav__tabs {
     width: 220px;

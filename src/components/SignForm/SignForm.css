@@ -56,6 +56,10 @@
   line-height: 1.2;
 }
 
+.sign__submit:hover {
+  opacity: .8;
+}
+
 .sign__text {
   margin: 0;
   padding-top: 16px;
@@ -70,6 +74,10 @@
   text-decoration: none;
   color: #000;
   padding-left: 6px;
+}
+
+.sign__link:hover {
+  opacity: .7;
 }
 
 .sign__none {

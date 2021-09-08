@@ -40,6 +40,10 @@
   border-radius: 50px;
 }
 
+.header__account-btn:hover {
+  opacity: .8;
+}
+
 @media (max-width: 768px) {
   .header__account-btn_tablet {
     display: none;

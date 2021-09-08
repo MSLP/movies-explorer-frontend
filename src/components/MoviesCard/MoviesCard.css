@@ -47,6 +47,10 @@
   background-image: url('../../images/save_delete.svg');
 }
 
+.movie__button:hover {
+  opacity: .8;
+}
+
 .movie__img {
   width: 100%;
   object-fit: cover;

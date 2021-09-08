@@ -43,6 +43,10 @@
   padding-right: 20px;
 }
 
+.student__social:hover {
+  opacity: .7;
+}
+
 .student__photo {
   width: 270px;
   height: 327px;
