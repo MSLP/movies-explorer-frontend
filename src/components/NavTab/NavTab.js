@@ -5,9 +5,9 @@ export default function NavTab() {
   return (
     <div className="nav">
       <div className="nav__tabs">
-        <Button className="button__nav">About</Button>
-        <Button className="button__nav">Technologies</Button>
-        <Button className="button__nav">Student</Button>
+        <Button className="nav__button">About</Button>
+        <Button className="nav__button">Technologies</Button>
+        <Button className="nav__button">Student</Button>
       </div>
     </div>
   );

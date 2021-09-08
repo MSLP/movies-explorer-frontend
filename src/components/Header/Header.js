@@ -12,14 +12,14 @@ export default function Header({ isMain }) {
       {isMain
         ? (
           <div>
-            <Button className="button__header_sign">Sign Up</Button>
-            <Button className="button__header_sign button__header_sign_active">Sign In</Button>
+            <Button className="header__sign">Sign Up</Button>
+            <Button className="header__sign header__sign_active">Sign In</Button>
           </div>
         )
         : (
           <>
             <Navigation />
-            <Button className="button__account button__account_header">
+            <Button className="header__account-btn header__account-btn_tablet">
               <img className="header__account" src={account} alt="account" />
               <p className="header__account">Account</p>
             </Button>
