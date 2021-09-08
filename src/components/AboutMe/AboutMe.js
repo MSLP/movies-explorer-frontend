@@ -16,7 +16,7 @@ const AboutMe = forwardRef((props, ref) => (
           I really like travelling. I have been living in Bay Area in California, USA,
           but now I live in London, UK. In my free time I work out and read books.
         </p>
-        <a className="student__social" href="https://www.instagram.com/mariia_slp/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a className="student__social" href="https://www.linkedin.com/in/mslp/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         <a className="student__social" href="https://github.com/MSLP" target="_blank" rel="noopener noreferrer">Github</a>
       </div>
       <img src={student} alt="student" className="student__photo" />
