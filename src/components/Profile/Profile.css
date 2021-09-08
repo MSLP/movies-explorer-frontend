@@ -33,12 +33,18 @@
 }
 
 .profile__input {
+  padding: 0;
   border: 0;
   background-color: transparent;
   text-align: right;
   font-weight: 400;
   font-size: 11px;
   line-height: 1.2;
+}
+
+.profile__input:focus {
+  outline: none;
+  border-color: #000;
 }
 
 .profile__edit {
