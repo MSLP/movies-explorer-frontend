@@ -30,7 +30,8 @@ export default function SignForm({
       </form>
       <p className="sign__text">
         {text}
-        <a className="sign__link" href="/signin">{link}</a>
+        {isRegister ? <a className="sign__link" href="/signin">{link}</a>
+          : <a className="sign__link" href="/signup">{link}</a>}
       </p>
     </div>
   );

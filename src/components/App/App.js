@@ -5,6 +5,7 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import NotFound from '../NotFound/NotFound';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
+import Login from '../Login/Login';
 
 export default function App() {
   return (
@@ -14,6 +15,9 @@ export default function App() {
       </Route>
       <Route path="/signup">
         <Register />
+      </Route>
+      <Route path="/signin">
+        <Login />
       </Route>
       <Route path="/movies">
         <Movies />
