@@ -19,13 +19,10 @@ export default function SignForm({
           Email
           <input id="email" className="sign__input" type="email" required />
         </label>
-        {isRegister
-          ? (
-            <label className="sign__label" htmlFor="password">
-              Password
-              <input id="password" className="sign__input" type="password" required />
-            </label>
-          ) : ''}
+        <label className={isRegister ? 'sign__label' : 'sign__label sign__none'} htmlFor="password">
+          Password
+          <input id="password" className="sign__input" type="password" required />
+        </label>
         <Button className="sign__submit" type="submit">{submit}</Button>
       </form>
       <p className="sign__text">
