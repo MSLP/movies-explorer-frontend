@@ -1,15 +1,15 @@
-.register {
+.sign {
   width: 31%;
   margin: 0 auto;
   padding: 70px 0;
 }
 
-.register__logo {
+.sign__logo {
   width: 38px;
   height: 38px;
 }
 
-.register__title {
+.sign__title {
   margin: 0;
   padding: 40px 0 16px 0;
   font-weight: 500;
@@ -17,7 +17,7 @@
   line-height: 1.2;
 }
 
-.register__label {
+.sign__label {
   display: block;
   padding-top: 24px;
   font-weight: 400;
@@ -26,7 +26,7 @@
   color: #a0a0a0;
 }
 
-.register__input {
+.sign__input {
   display: block;
   padding: 5px 0 10px 0;
   border: 0;
@@ -39,12 +39,12 @@
   color: #000;
 }
 
-.register__input:focus {
+.sign__input:focus {
   outline: none;
   border-color: #000;
 }
 
-.register__submit {
+.sign__submit {
   margin-top: 134px;
   width: 100%;
   padding: 13px 0 15px 0;
@@ -56,7 +56,7 @@
   line-height: 1.2;
 }
 
-.register__text {
+.sign__text {
   margin: 0;
   padding-top: 16px;
   font-weight: 400;
@@ -66,7 +66,7 @@
   color: #a0a0a0;
 }
 
-.register__link {
+.sign__link {
   text-decoration: none;
   color: #000;
   padding-left: 6px;
