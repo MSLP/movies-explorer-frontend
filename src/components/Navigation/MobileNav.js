@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import Button from '../Button/Button';
 import account from '../../images/account.svg';
@@ -6,6 +6,16 @@ import account from '../../images/account.svg';
 export default function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
   const history = useHistory();
+
+  // close on Esc
+  const handleEscapeClose = (e) => {
+    if (e.key === 'Escape') setIsOpen(false);
+  };
+  useEffect(() => {
+    if (isOpen) document.addEventListener('keydown', handleEscapeClose);
+    else document.removeEventListener('keydown', handleEscapeClose);
+  }, [isOpen]);
+
   return (
     <>
       {!isOpen ? (<Button className="navigation__burger" onClick={() => setIsOpen(true)} />)
