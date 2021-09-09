@@ -44,6 +44,13 @@
   border-color: #000;
 }
 
+.sign__error {
+  color: #ff4062;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.2;
+}
+
 .sign__submit {
   margin-top: 134px;
   width: 100%;

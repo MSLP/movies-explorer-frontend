@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import useForm from '../../hooks/useForm';
 import './SignForm.css';
 import logo from '../../images/logo.svg';
 import Button from '../Button/Button';
@@ -7,6 +8,7 @@ import Button from '../Button/Button';
 export default function SignForm({
   title, submit, text, link, isRegister,
 }) {
+  const { handleChange, errors } = useForm();
   return (
     <div className="sign">
       <Link className="sign__logo" to="/"><img src={logo} alt="logo" /></Link>
@@ -14,15 +16,18 @@ export default function SignForm({
       <form>
         <label className="sign__label" htmlFor="name">
           Name
-          <input id="name" className="sign__input" type="text" required />
+          <input name="name" className="sign__input" type="text" minLength="2" maxLength="30" onChange={handleChange} required />
+          <span className="sign__error">{errors.name || ''}</span>
         </label>
         <label className="sign__label" htmlFor="email">
           Email
-          <input id="email" className="sign__input" type="email" required />
+          <input name="email" className="sign__input" type="email" onChange={handleChange} required />
+          <span className="sign__error">{errors.email || ''}</span>
         </label>
         <label className={isRegister ? 'sign__label' : 'sign__label sign__none'} htmlFor="password">
           Password
-          <input id="password" className="sign__input" type="password" required />
+          <input name="password" className="sign__input" type="password" onChange={handleChange} required />
+          <span className="sign__error">{errors.password || ''}</span>
         </label>
         <Button className="sign__submit" type="submit">{submit}</Button>
       </form>
