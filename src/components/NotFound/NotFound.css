@@ -1,0 +1,54 @@
+.page404 {
+  padding: 246px 0 60px 0;
+  width: 30%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.page404__title {
+  margin: 0;
+  font-weight: 400;
+  font-size: 140px;
+  line-height: 1.2;
+}
+
+.page404__subtitle {
+  margin: 0;
+  padding: 5px 0 184px 0;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.page404__button {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.1;
+}
+
+@media (max-width: 768px) {
+  .page404 {
+    width: 52%;
+    padding: 408px 0 222px 0;
+  }
+}
+
+@media (max-width: 425px) {
+  .page404 {
+    width: 75%;
+    padding: 329px 0 30px 0;
+  }
+
+  .page404__title {
+    font-size: 80px;
+  }
+
+  .page404__subtitle {
+    font-size: 12px;
+    padding: 10px 0 284px 0;
+  }
+
+  .page404__button {
+    font-size: 12px;
+  }
+}

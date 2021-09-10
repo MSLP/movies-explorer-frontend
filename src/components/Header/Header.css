@@ -1,0 +1,66 @@
+.header {
+  width: 90%;
+  margin: 0 auto;
+  padding: 20px 0 18px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header__logo {
+  width: 38px;
+  height: 38px;
+}
+
+.header__account {
+  margin: 0 auto;
+  display: inline;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.15;
+  padding: 0 3px;
+  vertical-align: middle;
+}
+
+.header__sign {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.3;
+  padding: 8px 20px;
+  border-radius: 3px;
+  margin-left: 30px;
+}
+
+.header__sign:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.header__account-btn {
+  border: 2px solid rgba(170, 170, 170, 0.2);
+  border-radius: 50px;
+}
+
+.header__account-btn:hover {
+  opacity: .8;
+}
+
+@media (max-width: 768px) {
+  .header__account-btn_tablet {
+    display: none;
+  }
+
+  .header__account-btn_nav {
+    position: absolute;
+    bottom: 90px;
+    left: 50%;
+    margin-left: -44px;
+  }
+}
+
+@media (max-width: 425px) {
+  .header__sign {
+    font-size: 10px;
+    line-height: 1.6;
+    margin-left: 14px;
+  }
+}

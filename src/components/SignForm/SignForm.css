@@ -1,0 +1,125 @@
+.sign {
+  width: 31%;
+  margin: 0 auto;
+  padding: 70px 0;
+}
+
+.sign__logo {
+  width: 38px;
+  height: 38px;
+}
+
+.sign__title {
+  margin: 0;
+  padding: 40px 0 16px 0;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.sign__label {
+  display: block;
+  padding-top: 24px;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.2;
+  color: #a0a0a0;
+}
+
+.sign__input {
+  display: block;
+  padding: 5px 0 10px 0;
+  border: 0;
+  border-bottom: 1px solid #e8e8e8;
+  width: 100%;
+  background-color: transparent;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.2;
+  color: #000;
+}
+
+.sign__input:focus {
+  outline: none;
+  border-color: #000;
+}
+
+.sign__error {
+  color: #ff4062;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.2;
+}
+
+.sign__submit {
+  margin-top: 134px;
+  width: 100%;
+  padding: 13px 0 15px 0;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.sign__submit:hover {
+  opacity: .8;
+}
+
+.sign__text {
+  margin: 0;
+  padding-top: 16px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.2;
+  text-align: center;
+  color: #a0a0a0;
+}
+
+.sign__link {
+  text-decoration: none;
+  color: #000;
+  padding-left: 6px;
+}
+
+.sign__link:hover {
+  opacity: .7;
+}
+
+.sign__none {
+  visibility: hidden;
+}
+
+@media (max-width: 768px) {
+  .sign {
+    width: 51%;
+    padding: 232px 0;
+  }
+}
+
+@media (max-width: 425px) {
+  .sign {
+    width: 81%;
+    padding: 56px 0 30px 0;
+  }
+
+  .sign__logo {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .sign__title {
+    text-align: center;
+  }
+
+  .sign__submit {
+    margin-top: 222px;
+    font-size: 12px;
+    padding: 15px 0;
+  }
+
+  .sign__text {
+    font-size: 12px;
+  }
+}
