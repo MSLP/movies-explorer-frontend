@@ -6,13 +6,13 @@ import account from '../../images/account.svg';
 import Button from '../Button/Button';
 import Navigation from '../Navigation/Navigation';
 
-export default function Header({ isMain }) {
+export default function Header({ isMain, loggedIn }) {
   const history = useHistory();
-  const logedIn = false; // будет браться из стейта, залогинен ли человек
+
   return (
     <div className="header">
       <Link className="header__logo" to="/"><img src={logo} alt="logo" /></Link>
-      {isMain && !logedIn
+      {isMain && !loggedIn
         ? (
           <div>
             <Button onClick={() => history.push('/signup')} className="header__sign">Sign Up</Button>
@@ -34,8 +34,10 @@ export default function Header({ isMain }) {
 
 Header.propTypes = {
   isMain: PropTypes.bool,
+  loggedIn: PropTypes.bool,
 };
 
 Header.defaultProps = {
   isMain: false,
+  loggedIn: false,
 };
