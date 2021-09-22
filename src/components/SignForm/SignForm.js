@@ -6,15 +6,25 @@ import logo from '../../images/logo.svg';
 import Button from '../Button/Button';
 
 export default function SignForm({
-  title, submit, text, link, isRegister,
+  title, submit, text, link, onSubmit, isRegister,
 }) {
-  const { handleChange, errors } = useForm();
+  const { values, handleChange, errors } = useForm();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onSubmit({
+      name: values.name,
+      email: values.email,
+      password: values.password,
+    });
+  }
+
   return (
     <div className="sign">
       <Link className="sign__logo" to="/"><img src={logo} alt="logo" /></Link>
       <h2 className="sign__title">{title}</h2>
-      <form>
-        <label className="sign__label" htmlFor="name">
+      <form onSubmit={handleSubmit} noValidate>
+        <label className={isRegister ? 'sign__label' : 'sign__label sign__none'} htmlFor="name">
           Name
           <input name="name" className="sign__input" type="text" minLength="2" maxLength="30" onChange={handleChange} required />
           <span className="sign__error">{errors.name || ''}</span>
@@ -24,7 +34,7 @@ export default function SignForm({
           <input name="email" className="sign__input" type="email" onChange={handleChange} required />
           <span className="sign__error">{errors.email || ''}</span>
         </label>
-        <label className={isRegister ? 'sign__label' : 'sign__label sign__none'} htmlFor="password">
+        <label className="sign__label" htmlFor="password">
           Password
           <input name="password" className="sign__input" type="password" onChange={handleChange} required />
           <span className="sign__error">{errors.password || ''}</span>
@@ -45,6 +55,7 @@ SignForm.propTypes = {
   submit: PropTypes.string,
   text: PropTypes.string,
   link: PropTypes.string,
+  onSubmit: PropTypes.func.isRequired,
   isRegister: PropTypes.bool,
 };
 

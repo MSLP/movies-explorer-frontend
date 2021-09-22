@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import './Profile.css';
 import useForm from '../../hooks/useForm';
 import Button from '../Button/Button';
 import Header from '../Header/Header';
 
-export default function Profile() {
+export default function Profile({ onClick }) {
   const { values, handleChange, errors } = useForm();
   return (
     <>
@@ -23,8 +24,12 @@ export default function Profile() {
           <span className="profile__error">{errors.email || ''}</span>
           <Button className="profile__edit" type="submit">Edit</Button>
         </form>
-        <Button className="profile__logout">Logout</Button>
+        <Button onClick={onClick} className="profile__logout">Logout</Button>
       </div>
     </>
   );
 }
+
+Profile.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};
