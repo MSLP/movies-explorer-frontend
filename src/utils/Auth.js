@@ -36,7 +36,10 @@ class Auth {
         Authorization: `Bearer ${token}`,
       },
     })
-      .then(this._checkResponse);
+      .then((res) => {
+        if (res.ok) return res.json();
+        return Promise.reject(new Error(`Error: ${res.status}`));
+      });
   }
 }
 
