@@ -63,7 +63,7 @@ class MainApi {
 }
 
 export default new MainApi({
-  baseUrl: 'https://api.explorer.mslp.nomoredomains.monster/',
+  baseUrl: 'https://api.explorer.mslp.nomoredomains.monster',
   headers: {
     'Content-Type': 'application/json',
   },
