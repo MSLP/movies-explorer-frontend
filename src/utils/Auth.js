@@ -12,7 +12,9 @@ class Auth {
     })
       .then((res) => {
         if (res.ok) return res.json();
-        return Promise.reject(new Error(`Error: ${res.status}`));
+        return res.json()
+          .then((err) => Promise.reject(new Error(`${err.message}`)))
+          .catch((newErr) => Promise.reject(new Error(`${newErr}`)));
       });
   }
 
@@ -24,7 +26,9 @@ class Auth {
     })
       .then((res) => {
         if (res.ok) return res.json();
-        return Promise.reject(new Error(`Error: ${res.status}`));
+        return res.json()
+          .then((err) => Promise.reject(new Error(`${err.message}`)))
+          .catch((newErr) => Promise.reject(new Error(`${newErr}`)));
       });
   }
 
@@ -38,7 +42,9 @@ class Auth {
     })
       .then((res) => {
         if (res.ok) return res.json();
-        return Promise.reject(new Error(`Error: ${res.status}`));
+        return res.json()
+          .then((err) => Promise.reject(new Error(`${err.message}`)))
+          .catch((newErr) => Promise.reject(new Error(`${newErr}`)));
       });
   }
 }

@@ -6,7 +6,7 @@ import logo from '../../images/logo.svg';
 import Button from '../Button/Button';
 
 export default function SignForm({
-  title, submit, text, link, onSubmit, isRegister,
+  title, submit, text, link, onSubmit, isRegister, error,
 }) {
   const { values, handleChange, errors } = useForm();
 
@@ -40,6 +40,7 @@ export default function SignForm({
           <span className="sign__error">{errors.password || ''}</span>
         </label>
         <Button className="sign__submit" type="submit">{submit}</Button>
+        <span className="sign__error">{error}</span>
       </form>
       <p className="sign__text">
         {text}
@@ -55,6 +56,7 @@ SignForm.propTypes = {
   submit: PropTypes.string,
   text: PropTypes.string,
   link: PropTypes.string,
+  error: PropTypes.string,
   onSubmit: PropTypes.func.isRequired,
   isRegister: PropTypes.bool,
 };
@@ -64,5 +66,6 @@ SignForm.defaultProps = {
   submit: '',
   text: '',
   link: '',
+  error: '',
   isRegister: false,
 };

@@ -15,6 +15,7 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  const [error, setError] = useState('');
 
   const history = useHistory();
 
@@ -42,7 +43,7 @@ export default function App() {
         localStorage.setItem('token', res.token);
         history.push('/movies');
       })
-      .catch((err) => console.log(err));
+      .catch((err) => setError(`${err.message}`));
   }
 
   function handleLogin(data) {
@@ -52,7 +53,7 @@ export default function App() {
         localStorage.setItem('token', res.token);
         history.push('/movies');
       })
-      .catch((err) => console.log(err));
+      .catch((err) => setError(`${err.message}`));
   }
 
   function handleSignOut() {
@@ -68,10 +69,10 @@ export default function App() {
           <Main loggedIn={loggedIn} />
         </Route>
         <Route path="/signup">
-          <Register onSubmit={handleRegister} />
+          <Register error={error} onSubmit={handleRegister} />
         </Route>
         <Route path="/signin">
-          <Login onSubmit={handleLogin} />
+          <Login error={error} onSubmit={handleLogin} />
         </Route>
         <ProtectedRoute path="/movies" loggedIn component={Movies} />
         <ProtectedRoute path="/saved-movies" loggedIn component={SavedMovies} />
