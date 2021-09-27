@@ -14,7 +14,10 @@ export default function MoviesCard({ movie, isActive, isSaved }) {
       <div className="movie__header">
         <div>
           <h2 className="movie__title">{movie?.nameEN}</h2>
-          <p className="movie__duration">{movie?.duration}</p>
+          <p className="movie__duration">
+            {movie?.duration}
+            &nbsp;min
+          </p>
         </div>
         <Button className={buttonClassName} />
       </div>
