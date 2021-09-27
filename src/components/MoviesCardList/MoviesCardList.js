@@ -5,8 +5,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 export default function MoviesCardList({ movies, isSaved }) {
   return (
     <div className="movies">
-      {movies?.map((movie) => <MoviesCard movie={movie} />)}
-      <MoviesCard isSaved={isSaved} />
+      {movies?.map((movie) => <MoviesCard movie={movie} isSaved={isSaved} />)}
     </div>
   );
 }

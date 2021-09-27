@@ -32,7 +32,7 @@ export default function Movies() {
     <>
       <Header />
       <Search handleSearch={(data) => setFilter(data)} />
-      <MoviesCardList movies={filteredMovies} />
+      {filteredMovies.length ? <MoviesCardList movies={filteredMovies} /> : <p className="movies__not-found">No results</p>}
       <div className="movies__more-container">
         <Button className="movies__more-button">More</Button>
       </div>
