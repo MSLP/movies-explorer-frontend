@@ -18,7 +18,9 @@ export default function MoviesCard({ movie, isActive, isSaved }) {
         </div>
         <Button className={buttonClassName} />
       </div>
-      <img className="movie__img" src={`https://api.nomoreparties.co${movie?.image?.formats?.thumbnail?.url}`} alt="thumbnail" />
+      <a href={movie?.trailerLink} target="_blank" rel="noreferrer">
+        <img className="movie__img" src={`https://api.nomoreparties.co${movie?.image?.formats?.thumbnail?.url}`} alt="thumbnail" />
+      </a>
     </div>
   );
 }
