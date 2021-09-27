@@ -22,7 +22,8 @@ export default function App() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     token && auth.checkToken(token)
-      .then(() => {
+      .then((data) => {
+        setCurrentUser(data);
         setLoggedIn(true);
         history.push('/movies');
       })
@@ -60,6 +61,14 @@ export default function App() {
     history.push('/');
   }
 
+  function handleUserUpdate(data) {
+    mainApi.changeUserInfo(data)
+      .then((res) => {
+        setCurrentUser(res);
+      })
+      .catch((err) => setError(`${err.message}`));
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Switch>
@@ -74,7 +83,7 @@ export default function App() {
         </Route>
         <ProtectedRoute path="/movies" loggedIn component={Movies} />
         <ProtectedRoute path="/saved-movies" loggedIn component={SavedMovies} />
-        <ProtectedRoute path="/profile" loggedIn component={Profile} onClick={handleSignOut} />
+        <ProtectedRoute path="/profile" loggedIn component={Profile} onClick={handleSignOut} onSubmit={handleUserUpdate} />
         <Route path="*">
           <NotFound />
         </Route>

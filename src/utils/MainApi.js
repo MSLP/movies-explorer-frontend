@@ -15,7 +15,6 @@ class MainApi {
       });
   }
 
-  // поставить лайк
   saveMovie() {
     return fetch(`${this.baseUrl}/movies`, {
       method: 'POST',
@@ -66,5 +65,6 @@ export default new MainApi({
   baseUrl: 'https://api.explorer.mslp.nomoredomains.monster',
   headers: {
     'Content-Type': 'application/json',
+    authorization: `Bearer ${localStorage.getItem('token')}`,
   },
 });
