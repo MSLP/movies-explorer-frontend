@@ -20,12 +20,10 @@ export default function App() {
   const history = useHistory();
 
   useEffect(() => {
-    console.log(loggedIn);
     const token = localStorage.getItem('token');
     token && auth.checkToken(token)
-      .then((data) => {
+      .then(() => {
         setLoggedIn(true);
-        console.log(data);
         history.push('/movies');
       })
       .catch((err) => console.log(err));
