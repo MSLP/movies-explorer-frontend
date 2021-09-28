@@ -17,7 +17,12 @@ export default function Movies() {
     setIsLoading(true);
     api.getSavedMovies()
       .then((res) => {
-        setMovies(res);
+        const newRes = res.map((el) => {
+          const newEl = el;
+          newEl.saved = true;
+          return newEl;
+        });
+        setMovies(newRes);
         setIsLoading(false);
       })
       .catch((err) => {
@@ -49,7 +54,7 @@ export default function Movies() {
 
   let block = <Preloader />;
   if (!isLoading) {
-    block = nothingFound ? <p className="movies__not-found">Nothing saved</p> : <MoviesCardList movies={movies} setMovies={setMovies} isSaved />;
+    block = nothingFound ? <p className="movies__not-found">Nothing saved</p> : <MoviesCardList movies={movies} setMovies={setMovies} />;
   }
 
   return (
