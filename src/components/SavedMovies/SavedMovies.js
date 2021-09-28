@@ -4,20 +4,25 @@ import Footer from '../Footer/Footer';
 import Search from '../Search/Search';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import api from '../../utils/MainApi';
+import Preloader from '../Preloader/Preloader';
 
 export default function Movies() {
   const [movies, setMovies] = useState([]);
   const [nothingFound, setNothingFound] = useState(true);
   const [filter, setFilter] = useState('');
   const [toggle, setToggle] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     api.getSavedMovies()
       .then((res) => {
         setMovies(res);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        setIsLoading(false);
         setNothingFound(true);
       });
   }, []);
@@ -42,11 +47,16 @@ export default function Movies() {
     else setNothingFound(true);
   }, [movies]);
 
+  let block = <Preloader />;
+  if (!isLoading) {
+    block = nothingFound ? <p className="movies__not-found">No results</p> : <MoviesCardList movies={movies} setMovies={setMovies} isSaved />;
+  }
+
   return (
     <>
       <Header isMovies />
       <Search handleSearch={(data) => setFilter(data)} handleToggle={() => setToggle(!toggle)} />
-      {nothingFound ? <p className="movies__not-found">No results</p> : <MoviesCardList movies={movies} setMovies={setMovies} isSaved />}
+      {block}
       <Footer />
     </>
   );
