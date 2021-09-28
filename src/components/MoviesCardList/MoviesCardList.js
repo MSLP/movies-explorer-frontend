@@ -5,17 +5,17 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 export default function MoviesCardList({ movies, isSaved }) {
   return (
     <div className="movies">
-      {movies?.map((movie) => <MoviesCard movie={movie} isSaved={isSaved} />)}
+      {movies?.map((movie) => <MoviesCard key={movie?.id} movie={movie} isSaved={isSaved} />)}
     </div>
   );
 }
 
 MoviesCardList.propTypes = {
-  movies: PropTypes.arrayOf(PropTypes.any),
+  movies: PropTypes.arrayOf(PropTypes.object),
   isSaved: PropTypes.bool,
 };
 
 MoviesCardList.defaultProps = {
-  movies: [],
+  movies: [{}],
   isSaved: false,
 };

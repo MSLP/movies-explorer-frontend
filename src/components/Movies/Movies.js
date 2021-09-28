@@ -16,7 +16,14 @@ export default function Movies() {
   useEffect(() => {
     api.getMovies()
       .then((res) => {
-        setMovies(res);
+        const filterRes = res.filter((movie) => {
+          if (!movie.country || !movie.director || !movie.duration
+            || !movie.year || !movie.description || !movie.image.formats.thumbnail.url
+            || !movie.trailerLink || !movie.id || !movie.nameRU
+            || !movie.nameEN) return false;
+          return true;
+        });
+        setMovies(filterRes);
       })
       .catch((err) => console.log(err));
   }, []);

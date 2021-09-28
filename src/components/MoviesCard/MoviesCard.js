@@ -29,13 +29,17 @@ export default function MoviesCard({ movie, isActive, isSaved }) {
 }
 
 MoviesCard.propTypes = {
-  movie: PropTypes.objectOf(PropTypes.object),
+  movie: PropTypes.shape({
+    nameEN: PropTypes.string,
+    duration: PropTypes.number,
+    trailerLink: PropTypes.string,
+    image: PropTypes.objectOf(PropTypes.any),
+  }).isRequired,
   isActive: PropTypes.bool,
   isSaved: PropTypes.bool,
 };
 
 MoviesCard.defaultProps = {
-  movie: {},
   isActive: false,
   isSaved: false,
 };
