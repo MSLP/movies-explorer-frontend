@@ -11,18 +11,23 @@ class MainApi {
     })
       .then((res) => {
         if (res.ok) return res.json();
-        return Promise.reject(new Error(`Error: ${res.status}`));
+        return res.json()
+          .then((err) => Promise.reject(err.message))
+          .catch((newErr) => Promise.reject(new Error(`${newErr}`)));
       });
   }
 
-  saveMovie() {
+  saveMovie(movie) {
     return fetch(`${this.baseUrl}/movies`, {
       method: 'POST',
       headers: this.headers,
+      body: JSON.stringify(movie),
     })
       .then((res) => {
         if (res.ok) return res.json();
-        return Promise.reject(new Error(`Error: ${res.status}`));
+        return res.json()
+          .then((err) => Promise.reject(err.message))
+          .catch((newErr) => Promise.reject(new Error(`${newErr}`)));
       });
   }
 
@@ -33,7 +38,9 @@ class MainApi {
     })
       .then((res) => {
         if (res.ok) return res.json();
-        return Promise.reject(new Error(`Error: ${res.status}`));
+        return res.json()
+          .then((err) => Promise.reject(err.message))
+          .catch((newErr) => Promise.reject(new Error(`${newErr}`)));
       });
   }
 
@@ -44,7 +51,9 @@ class MainApi {
     })
       .then((res) => {
         if (res.ok) return res.json();
-        return Promise.reject(new Error(`Error: ${res.status}`));
+        return res.json()
+          .then((err) => Promise.reject(err.message))
+          .catch((newErr) => Promise.reject(new Error(`${newErr}`)));
       });
   }
 
@@ -56,7 +65,9 @@ class MainApi {
     })
       .then((res) => {
         if (res.ok) return res.json();
-        return Promise.reject(new Error(`Error: ${res.status}`));
+        return res.json()
+          .then((err) => Promise.reject(err.message))
+          .catch((newErr) => Promise.reject(new Error(`${newErr}`)));
       });
   }
 }

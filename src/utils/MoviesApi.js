@@ -11,7 +11,7 @@ class MoviesApi {
     })
       .then((res) => {
         if (res.ok) return res.json();
-        return Promise.reject(new Error(`Error: ${res.status}`));
+        return Promise.reject(new Error(`${res.status}`));
       });
   }
 }

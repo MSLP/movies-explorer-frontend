@@ -7,6 +7,7 @@ import api from '../../utils/MainApi';
 
 export default function Movies() {
   const [movies, setMovies] = useState([]);
+  const [nothingFound, setNothingFound] = useState(true);
   const [filter, setFilter] = useState('');
   const [toggle, setToggle] = useState(false);
 
@@ -15,7 +16,10 @@ export default function Movies() {
       .then((res) => {
         setMovies(res);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setNothingFound(true);
+      });
   }, []);
 
   useEffect(() => {
@@ -33,11 +37,16 @@ export default function Movies() {
     } else setMovies(stringFilter);
   }, [filter, toggle]);
 
+  useEffect(() => {
+    if (movies?.length) setNothingFound(false);
+    else setNothingFound(true);
+  }, [movies]);
+
   return (
     <>
       <Header isMovies />
       <Search handleSearch={(data) => setFilter(data)} handleToggle={() => setToggle(!toggle)} />
-      {movies.length ? <MoviesCardList movies={movies} isSaved /> : <p className="movies__not-found">No results</p>}
+      {nothingFound ? <p className="movies__not-found">No results</p> : <MoviesCardList movies={movies} setMovies={setMovies} isSaved />}
       <Footer />
     </>
   );

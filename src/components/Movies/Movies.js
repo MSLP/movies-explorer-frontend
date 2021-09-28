@@ -9,6 +9,7 @@ import api from '../../utils/MoviesApi';
 
 export default function Movies() {
   const [movies, setMovies] = useState([]);
+  const [nothingFound, setNothingFound] = useState(true);
   const [filter, setFilter] = useState('');
   const [toggle, setToggle] = useState(false);
   const [filteredMovies, setFilteredMovies] = useState([]);
@@ -25,7 +26,10 @@ export default function Movies() {
         });
         setMovies(filterRes);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setNothingFound(true);
+      });
   }, []);
 
   useEffect(() => {
@@ -43,11 +47,16 @@ export default function Movies() {
     } else setFilteredMovies(stringFilter);
   }, [filter, toggle]);
 
+  useEffect(() => {
+    if (filteredMovies?.length) setNothingFound(false);
+    else setNothingFound(true);
+  }, [filteredMovies]);
+
   return (
     <>
       <Header />
       <Search handleSearch={(data) => setFilter(data)} handleToggle={() => setToggle(!toggle)} />
-      {filteredMovies.length ? <MoviesCardList movies={filteredMovies} /> : <p className="movies__not-found">No results</p>}
+      {nothingFound ? <p className="movies__not-found">No results</p> : <MoviesCardList movies={filteredMovies} />}
       <div className="movies__more-container">
         <Button className="movies__more-button">More</Button>
       </div>
