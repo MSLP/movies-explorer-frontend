@@ -5,6 +5,7 @@ import Footer from '../Footer/Footer';
 import Search from '../Search/Search';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Button from '../Button/Button';
+import Preloader from '../Preloader/Preloader';
 import api from '../../utils/MoviesApi';
 
 export default function Movies() {
@@ -13,8 +14,10 @@ export default function Movies() {
   const [filter, setFilter] = useState('');
   const [toggle, setToggle] = useState(false);
   const [filteredMovies, setFilteredMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     api.getMovies()
       .then((res) => {
         const filterRes = res.filter((movie) => {
@@ -25,10 +28,12 @@ export default function Movies() {
           return true;
         });
         setMovies(filterRes);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
         setNothingFound(true);
+        setIsLoading(false);
       });
   }, []);
 
@@ -52,11 +57,16 @@ export default function Movies() {
     else setNothingFound(true);
   }, [filteredMovies]);
 
+  let block = <Preloader />;
+  if (!isLoading) {
+    block = nothingFound ? <p className="movies__not-found">Enter something for searching</p> : <MoviesCardList movies={filteredMovies} />;
+  }
+
   return (
     <>
       <Header />
       <Search handleSearch={(data) => setFilter(data)} handleToggle={() => setToggle(!toggle)} />
-      {nothingFound ? <p className="movies__not-found">No results</p> : <MoviesCardList movies={filteredMovies} />}
+      {block}
       <div className="movies__more-container">
         <Button className="movies__more-button">More</Button>
       </div>

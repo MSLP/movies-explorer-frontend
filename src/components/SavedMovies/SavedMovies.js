@@ -49,7 +49,7 @@ export default function Movies() {
 
   let block = <Preloader />;
   if (!isLoading) {
-    block = nothingFound ? <p className="movies__not-found">No results</p> : <MoviesCardList movies={movies} setMovies={setMovies} isSaved />;
+    block = nothingFound ? <p className="movies__not-found">Nothing saved</p> : <MoviesCardList movies={movies} setMovies={setMovies} isSaved />;
   }
 
   return (
