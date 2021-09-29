@@ -10,11 +10,9 @@ class MainApi {
       headers: this.headers,
     })
       .then((res) => {
-        console.log(res);
         if (res.ok) return res.json();
         return res.json()
           .then((err) => {
-            console.log('movies api', err);
             if (err.message.includes('movies')) return Promise.resolve([]);
             return Promise.reject(err.message);
           })

@@ -63,6 +63,7 @@ export default function App() {
     setLoggedIn(false);
     localStorage.removeItem('token');
     localStorage.removeItem('savedMovies');
+    localStorage.removeItem('movies');
     history.push('/');
   }
 

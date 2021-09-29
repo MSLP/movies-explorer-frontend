@@ -2,8 +2,7 @@ import PropTypes from 'prop-types';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-export default function MoviesCardList({ movies, setMovies }) {
-  console.log(movies);
+export default function MoviesCardList({ movies, setSavedMovies, setMovies }) {
   return (
     <div className="movies">
       {movies?.map((movie) => (
@@ -11,6 +10,7 @@ export default function MoviesCardList({ movies, setMovies }) {
           key={movie?.id || movie?.movieId}
           movie={movie}
           isSaved={movie?.saved}
+          setSavedMovies={setSavedMovies}
           setMovies={setMovies}
         />
       ))}
@@ -21,9 +21,11 @@ export default function MoviesCardList({ movies, setMovies }) {
 MoviesCardList.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.object),
   setMovies: PropTypes.func,
+  setSavedMovies: PropTypes.func,
 };
 
 MoviesCardList.defaultProps = {
   movies: [{}],
   setMovies: () => {},
+  setSavedMovies: () => {},
 };

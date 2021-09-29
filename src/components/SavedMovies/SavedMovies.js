@@ -16,8 +16,8 @@ export default function Movies() {
 
   useEffect(() => {
     setIsLoading(true);
-    const localMovies = localStorage.getItem('savedMovies');
-    if (!localMovies) {
+    const localSavedMovies = localStorage.getItem('savedMovies');
+    if (!localSavedMovies) {
       api.getSavedMovies()
         .then((res) => {
           const newRes = res.map((el) => {
@@ -36,7 +36,7 @@ export default function Movies() {
           setNothingFound(true);
         });
     } else {
-      const parseLocalMovies = JSON.parse(localMovies);
+      const parseLocalMovies = JSON.parse(localSavedMovies);
       setSavedMovies(parseLocalMovies);
       setMovies(parseLocalMovies);
       setIsLoading(false);
@@ -65,7 +65,7 @@ export default function Movies() {
 
   let block = <Preloader />;
   if (!isLoading) {
-    block = nothingFound ? <p className="movies__not-found">Nothing saved</p> : <MoviesCardList movies={movies} setMovies={setMovies} />;
+    block = nothingFound ? <p className="movies__not-found">Nothing saved</p> : <MoviesCardList movies={movies} setSavedMovies={setMovies} />;
   }
 
   return (

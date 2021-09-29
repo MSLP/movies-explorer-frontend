@@ -6,10 +6,11 @@ import './MoviesCard.css';
 import api from '../../utils/MainApi';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 
-export default function MoviesCard({ movie, isSaved, setMovies }) {
+export default function MoviesCard({
+  movie, isSaved, setMovies, setSavedMovies,
+}) {
   const user = useContext(CurrentUserContext);
   const location = useLocation();
-  const img = movie?.image?.formats?.thumbnail?.url ? `https://api.nomoreparties.co${movie?.image?.formats?.thumbnail?.url}` : movie?.image;
   let buttonClassName = 'movie__button';
   if (location.pathname === '/movies' && isSaved) {
     buttonClassName += ' movie__button_active';
@@ -19,46 +20,64 @@ export default function MoviesCard({ movie, isSaved, setMovies }) {
   }
 
   function toggleSave(e) {
-    e.preventDefault();
     if (e.target.className.includes('delete') || e.target.className.includes('active')) {
+      console.log('toggleDelete', movie);
       api.deleteMovie(movie._id)
         .then(() => {
-          setMovies((state) => state.filter((c) => c._id !== movie._id));
-          const local = JSON.parse(localStorage.getItem('savedMovies'));
-          console.log('old local', local);
-          console.log('movie', movie);
-          const newLocal = local.filter((el) => el.movieId !== movie.movieId);
-          console.log('newLocal local', newLocal);
-          localStorage.setItem('savedMovies', JSON.stringify(newLocal));
-          e.target.className = 'movie__button';
+          setSavedMovies((state) => state.filter((c) => c._id !== movie._id));
+          const localSavedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+          const newLocalSavedMovies = localSavedMovies.filter((el) => el.movieId !== movie.movieId);
+          localStorage.setItem('savedMovies', JSON.stringify(newLocalSavedMovies));
+          const localMovies = JSON.parse(localStorage.getItem('movies'));
+          const newLocalMovies = localMovies
+            .map((el) => {
+              if (el.movieId === movie.movieId) {
+                const newEl = el;
+                newEl.saved = false;
+                newEl.owner = null;
+                newEl._id = null;
+                return newEl;
+              } return el;
+            });
+          localStorage.setItem('movies', JSON.stringify(newLocalMovies));
+          setMovies(localMovies);
         })
         .catch((err) => console.log(err));
-    } else if (!movie.saved) {
+    } else {
+      console.log('toggleSave', movie);
       api.saveMovie({
         country: movie.country,
         director: movie.director,
         duration: movie.duration,
         year: movie.year,
         description: movie.description,
-        image: `https://api.nomoreparties.co${movie?.image?.formats?.thumbnail?.url}`,
-        trailer: movie.trailerLink,
-        thumbnail: `https://api.nomoreparties.co${movie?.image?.formats?.thumbnail?.url}`,
-        owner: user.id,
-        movieId: movie.id,
+        image: movie.image,
+        trailer: movie.trailer,
+        thumbnail: movie.image,
+        movieId: movie.movieId,
         nameRU: movie.nameRU,
         nameEN: movie.nameEN,
+        owner: user.id,
       })
         .then((res) => {
-          const local = JSON.parse(localStorage.getItem('savedMovies'));
           res.saved = true;
-          local.push(res);
-          localStorage.setItem('savedMovies', JSON.stringify(local));
-          if (location.pathname === '/movies') {
-            e.target.className = 'movie__button movie__button_active';
-          }
-          if (location.pathname === '/saved-movies') {
-            e.target.className = 'movie__button movie__button_delete';
-          }
+          const localSavedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+          localSavedMovies.push(res);
+          localStorage.setItem('savedMovies', JSON.stringify(localSavedMovies));
+          setSavedMovies(localSavedMovies);
+          const localMovies = JSON.parse(localStorage.getItem('movies'));
+          const newLocalMovies = localMovies
+            .map((el) => {
+              if (el.movieId === res.movieId) {
+                const newEl = el;
+                newEl.saved = true;
+                newEl.owner = res.owner;
+                newEl._id = res._id;
+                return newEl;
+              } return el;
+            });
+          localStorage.setItem('movies', JSON.stringify(newLocalMovies));
+          setMovies(newLocalMovies);
         })
         .catch((err) => console.log(err));
     }
@@ -76,8 +95,8 @@ export default function MoviesCard({ movie, isSaved, setMovies }) {
         </div>
         <Button onClick={toggleSave} className={buttonClassName} />
       </div>
-      <a href={movie?.trailerLink || movie?.trailer} target="_blank" rel="noreferrer">
-        <img className="movie__img" src={img} alt="thumbnail" />
+      <a href={movie?.trailer} target="_blank" rel="noreferrer">
+        <img className="movie__img" src={movie?.image} alt="thumbnail" />
       </a>
     </div>
   );
@@ -85,7 +104,6 @@ export default function MoviesCard({ movie, isSaved, setMovies }) {
 
 MoviesCard.propTypes = {
   movie: PropTypes.shape({
-    saved: PropTypes.bool,
     country: PropTypes.string,
     director: PropTypes.string,
     description: PropTypes.string,
@@ -94,17 +112,17 @@ MoviesCard.propTypes = {
     year: PropTypes.string,
     duration: PropTypes.number,
     movieId: PropTypes.number,
-    id: PropTypes.number,
     _id: PropTypes.string,
-    trailerLink: PropTypes.string,
     trailer: PropTypes.string,
-    image: PropTypes.oneOfType([PropTypes.objectOf(PropTypes.any), PropTypes.string]),
+    image: PropTypes.string,
   }).isRequired,
   isSaved: PropTypes.bool,
   setMovies: PropTypes.func,
+  setSavedMovies: PropTypes.func,
 };
 
 MoviesCard.defaultProps = {
   isSaved: false,
+  setSavedMovies: () => {},
   setMovies: () => {},
 };

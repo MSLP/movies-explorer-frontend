@@ -24,25 +24,47 @@ export default function Movies() {
         || !movie.trailerLink || !movie.id || !movie.nameRU
         || !movie.nameEN) return false;
       return true;
-    });
+    }).map((movie) => ({
+      country: movie.country,
+      director: movie.director,
+      duration: movie.duration,
+      year: movie.year,
+      description: movie.description,
+      image: `https://api.nomoreparties.co${movie?.image?.formats?.thumbnail?.url}`,
+      trailer: movie.trailerLink,
+      thumbnail: `https://api.nomoreparties.co${movie?.image?.formats?.thumbnail?.url}`,
+      owner: null,
+      movieId: movie.id,
+      nameRU: movie.nameRU,
+      nameEN: movie.nameEN,
+      saved: false,
+      _id: null,
+    }));
   }
 
   function filterSavedMovies(all, saved) {
-    const savedIdList = saved.map((el) => el.movieId);
     return all.map((el) => {
       const newEl = el;
-      if (savedIdList.includes(newEl.id)) {
+      const candidateList = saved.filter((e) => newEl.movieId === e.movieId);
+      if (candidateList.length) {
         newEl.saved = true;
-        newEl._id = saved.filter((e) => newEl.id === e.movieId)[0]._id;
+        newEl._id = candidateList[0]._id;
+        newEl.owner = candidateList[0].owner;
+      } else {
+        newEl.saved = false;
+        newEl._id = undefined;
+        newEl.owner = undefined;
       }
       return newEl;
     });
   }
 
   useEffect(() => {
+    console.log('useEffect');
     setIsLoading(true);
-    const localMovies = localStorage.getItem('savedMovies');
-    if (!localMovies) {
+    const localMovies = localStorage.getItem('movies');
+    const localSavedMovies = localStorage.getItem('savedMovies');
+    if (!localMovies || !localSavedMovies) {
       Promise.all([mainApi.getSavedMovies(), api.getMovies()])
         .then(([savedMovies, allMovies]) => {
           const newSavedMovies = savedMovies.map((el) => {
@@ -52,8 +74,12 @@ export default function Movies() {
           });
           localStorage.setItem('savedMovies', JSON.stringify(newSavedMovies));
           const filterMovies = filterValidFields(allMovies);
-          setMovies(filterSavedMovies(filterMovies, newSavedMovies));
+          const filterSavedMoviesList = filterSavedMovies(filterMovies, newSavedMovies);
+          setMovies(filterSavedMoviesList);
+          localStorage.setItem('movies', JSON.stringify(filterSavedMoviesList));
           setIsLoading(false);
+          console.log('movies', filterSavedMoviesList);
+          console.log('savedMovies', newSavedMovies);
         })
         .catch((err) => {
           console.log(err);
@@ -61,18 +87,14 @@ export default function Movies() {
           setNothingFound(true);
         });
     } else {
-      const parseLocalSavedMovies = JSON.parse(localMovies);
-      api.getMovies()
-        .then((res) => {
-          const filterRes = filterValidFields(res);
-          setMovies(filterSavedMovies(filterRes, parseLocalSavedMovies));
-          setIsLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-          setNothingFound(true);
-          setIsLoading(false);
-        });
+      const parseLocalMovies = JSON.parse(localMovies);
+      const parseLocalSavedMovies = JSON.parse(localSavedMovies);
+      const filterLocalMovies = filterSavedMovies(parseLocalMovies, parseLocalSavedMovies);
+      setMovies(filterLocalMovies);
+      localStorage.setItem('movies', JSON.stringify(filterLocalMovies));
+      setIsLoading(false);
+      console.log('movies', filterLocalMovies);
+      console.log('savedMovies', parseLocalSavedMovies);
     }
   }, []);
 
@@ -89,7 +111,8 @@ export default function Movies() {
       });
       setFilteredMovies(toggleFilter);
     } else setFilteredMovies(stringFilter);
-  }, [filter, toggle]);
+    console.log('filteredMovies', filteredMovies);
+  }, [filter, toggle, movies]);
 
   useEffect(() => {
     if (filteredMovies?.length) setNothingFound(false);
@@ -98,7 +121,7 @@ export default function Movies() {
 
   let block = <Preloader />;
   if (!isLoading) {
-    block = nothingFound ? <p className="movies__not-found">Enter something for searching</p> : <MoviesCardList movies={filteredMovies} />;
+    block = nothingFound ? <p className="movies__not-found">Enter something for searching</p> : <MoviesCardList movies={filteredMovies} setMovies={setMovies} />;
   }
 
   return (
