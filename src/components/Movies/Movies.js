@@ -7,6 +7,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Button from '../Button/Button';
 import Preloader from '../Preloader/Preloader';
 import api from '../../utils/MoviesApi';
+import mainApi from '../../utils/MainApi';
 
 export default function Movies() {
   const [movies, setMovies] = useState([]);
@@ -16,25 +17,63 @@ export default function Movies() {
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  function filterValidFields(array) {
+    return array.filter((movie) => {
+      if (!movie.country || !movie.director || !movie.duration
+        || !movie.year || !movie.description || !movie.image.formats.thumbnail.url
+        || !movie.trailerLink || !movie.id || !movie.nameRU
+        || !movie.nameEN) return false;
+      return true;
+    });
+  }
+
+  function filterSavedMovies(all, saved) {
+    const savedIdList = saved.map((el) => el.movieId);
+    return all.map((el) => {
+      const newEl = el;
+      if (savedIdList.includes(newEl.id)) {
+        newEl.saved = true;
+        newEl._id = saved.filter((e) => newEl.id === e.movieId)[0]._id;
+      }
+      return newEl;
+    });
+  }
+
   useEffect(() => {
     setIsLoading(true);
-    api.getMovies()
-      .then((res) => {
-        const filterRes = res.filter((movie) => {
-          if (!movie.country || !movie.director || !movie.duration
-            || !movie.year || !movie.description || !movie.image.formats.thumbnail.url
-            || !movie.trailerLink || !movie.id || !movie.nameRU
-            || !movie.nameEN) return false;
-          return true;
+    const localMovies = localStorage.getItem('savedMovies');
+    if (!localMovies) {
+      Promise.all([mainApi.getSavedMovies(), api.getMovies()])
+        .then(([savedMovies, allMovies]) => {
+          const newSavedMovies = savedMovies.map((el) => {
+            const newEl = el;
+            newEl.saved = true;
+            return newEl;
+          });
+          localStorage.setItem('savedMovies', JSON.stringify(newSavedMovies));
+          const filterMovies = filterValidFields(allMovies);
+          setMovies(filterSavedMovies(filterMovies, newSavedMovies));
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setIsLoading(false);
+          setNothingFound(true);
         });
-        setMovies(filterRes);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        setNothingFound(true);
-        setIsLoading(false);
-      });
+    } else {
+      const parseLocalSavedMovies = JSON.parse(localMovies);
+      api.getMovies()
+        .then((res) => {
+          const filterRes = filterValidFields(res);
+          setMovies(filterSavedMovies(filterRes, parseLocalSavedMovies));
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setNothingFound(true);
+          setIsLoading(false);
+        });
+    }
   }, []);
 
   useEffect(() => {

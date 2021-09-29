@@ -26,7 +26,6 @@ export default function App() {
       .then((data) => {
         setCurrentUser(data);
         setLoggedIn(true);
-        history.push('/movies');
       })
       .catch((err) => console.log(err));
   }, []);
@@ -63,6 +62,7 @@ export default function App() {
   function handleSignOut() {
     setLoggedIn(false);
     localStorage.removeItem('token');
+    localStorage.removeItem('savedMovies');
     history.push('/');
   }
 

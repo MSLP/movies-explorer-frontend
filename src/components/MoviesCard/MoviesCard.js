@@ -1,4 +1,5 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from '../Button/Button';
 import './MoviesCard.css';
@@ -6,15 +7,16 @@ import api from '../../utils/MainApi';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 export default function MoviesCard({ movie, isSaved, setMovies }) {
-  const [isLiked, setIsLiked] = useState(false);
+  const user = useContext(CurrentUserContext);
+  const location = useLocation();
   const img = movie?.image?.formats?.thumbnail?.url ? `https://api.nomoreparties.co${movie?.image?.formats?.thumbnail?.url}` : movie?.image;
   let buttonClassName = 'movie__button';
-  if (isLiked || isSaved) {
-    if (isLiked) buttonClassName += ' movie__button_active';
-    if (isSaved) buttonClassName += ' movie__button_delete';
+  if (location.pathname === '/movies' && isSaved) {
+    buttonClassName += ' movie__button_active';
   }
-
-  const user = useContext(CurrentUserContext);
+  if (location.pathname === '/saved-movies' && isSaved) {
+    buttonClassName += ' movie__button_delete';
+  }
 
   function toggleSave(e) {
     e.preventDefault();
@@ -22,10 +24,16 @@ export default function MoviesCard({ movie, isSaved, setMovies }) {
       api.deleteMovie(movie._id)
         .then(() => {
           setMovies((state) => state.filter((c) => c._id !== movie._id));
+          const local = JSON.parse(localStorage.getItem('savedMovies'));
+          console.log('old local', local);
+          console.log('movie', movie);
+          const newLocal = local.filter((el) => el.movieId !== movie.movieId);
+          console.log('newLocal local', newLocal);
+          localStorage.setItem('savedMovies', JSON.stringify(newLocal));
+          e.target.className = 'movie__button';
         })
         .catch((err) => console.log(err));
-      setIsLiked(false);
-    } else {
+    } else if (!movie.saved) {
       api.saveMovie({
         country: movie.country,
         director: movie.director,
@@ -40,8 +48,17 @@ export default function MoviesCard({ movie, isSaved, setMovies }) {
         nameRU: movie.nameRU,
         nameEN: movie.nameEN,
       })
-        .then(() => {
-          setIsLiked(true);
+        .then((res) => {
+          const local = JSON.parse(localStorage.getItem('savedMovies'));
+          res.saved = true;
+          local.push(res);
+          localStorage.setItem('savedMovies', JSON.stringify(local));
+          if (location.pathname === '/movies') {
+            e.target.className = 'movie__button movie__button_active';
+          }
+          if (location.pathname === '/saved-movies') {
+            e.target.className = 'movie__button movie__button_delete';
+          }
         })
         .catch((err) => console.log(err));
     }
@@ -68,6 +85,7 @@ export default function MoviesCard({ movie, isSaved, setMovies }) {
 
 MoviesCard.propTypes = {
   movie: PropTypes.shape({
+    saved: PropTypes.bool,
     country: PropTypes.string,
     director: PropTypes.string,
     description: PropTypes.string,
@@ -75,6 +93,7 @@ MoviesCard.propTypes = {
     nameRU: PropTypes.string,
     year: PropTypes.string,
     duration: PropTypes.number,
+    movieId: PropTypes.number,
     id: PropTypes.number,
     _id: PropTypes.string,
     trailerLink: PropTypes.string,

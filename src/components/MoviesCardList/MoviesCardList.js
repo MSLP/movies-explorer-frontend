@@ -3,6 +3,7 @@ import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 export default function MoviesCardList({ movies, setMovies }) {
+  console.log(movies);
   return (
     <div className="movies">
       {movies?.map((movie) => (
