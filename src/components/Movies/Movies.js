@@ -12,13 +12,22 @@ export default function Movies({
   movies, setMovies, setSavedMovies, isLoading,
 }) {
   const [nothingFound, setNothingFound] = useState(true);
+  const [noMore, setNoMore] = useState(true);
   const [filter, setFilter] = useState('');
   const [toggle, setToggle] = useState(false);
   const [filteredMovies, setFilteredMovies] = useState([]);
+  const [slicedMovies, setSlicedMovies] = useState();
+  const [initialColumn, setInitialColumn] = useState(3);
+  const [column, setColumn] = useState(initialColumn);
+
+  function handleMore() {
+    setColumn(column + initialColumn);
+  }
 
   useEffect(() => {
     const stringFilter = movies.filter((movie) => {
       if (!filter.length) return false;
+      setColumn(initialColumn);
       const searchableMovieName = movie.nameEN?.toLowerCase();
       return searchableMovieName?.includes(filter.trim().toLowerCase()) || false;
     });
@@ -32,16 +41,25 @@ export default function Movies({
   }, [filter, toggle, movies]);
 
   useEffect(() => {
-    if (filteredMovies?.length) setNothingFound(false);
-    else setNothingFound(true);
-  }, [filteredMovies]);
+    if (!filteredMovies?.length) setNothingFound(true);
+    else {
+      if (filteredMovies.length > column) {
+        setSlicedMovies(filteredMovies.slice(0, column));
+        setNoMore(false);
+      } else {
+        setSlicedMovies(filteredMovies);
+        setNoMore(true);
+      }
+      setNothingFound(false);
+    }
+  }, [filteredMovies, column]);
 
   let block = <Preloader />;
   if (!isLoading) {
     block = nothingFound ? <p className="movies__not-found">Enter something for searching</p>
       : (
         <MoviesCardList
-          movies={filteredMovies}
+          movies={slicedMovies}
           setMovies={setMovies}
           setSavedMovies={setSavedMovies}
         />
@@ -53,9 +71,12 @@ export default function Movies({
       <Header />
       <Search handleSearch={(data) => setFilter(data)} handleToggle={() => setToggle(!toggle)} />
       {block}
-      <div className="movies__more-container">
-        <Button className="movies__more-button">More</Button>
-      </div>
+      {noMore ? ''
+        : (
+          <div className="movies__more-container">
+            <Button onClick={handleMore} className="movies__more-button">More</Button>
+          </div>
+        )}
       <Footer />
     </>
   );
