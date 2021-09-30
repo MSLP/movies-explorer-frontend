@@ -28,23 +28,16 @@ export default function App() {
   const history = useHistory();
   const location = useLocation();
 
-  // при монтировании компонента проверяется наличие токена,
-  // если он есть, делаем запрос за информацией о пользователе,
-  // затем проверяется наличие фильмов в сторадже,
-  // если фильмы есть, они достаются из стораджа,
-  // если нет, то начинаем загрузку с апи,
+  // check token
+  // if token and no user -> get user info
+  // check movies in storage -> get movies from storage or APIs
   useEffect(() => {
-    console.log(loggedIn);
     const localMovies = localStorage.getItem('movies');
     const localSavedMovies = localStorage.getItem('savedMovies');
-    console.log('check token', token);
     if (token) {
-      setIsLoading(true);
       !Object.keys(currentUser).length && mainApi.getUserInfo()
         .then((data) => {
-          console.log('user info');
           setCurrentUser(data);
-          setIsLoading(false);
           setLoggedIn(true);
         })
         .catch((err) => {
@@ -59,7 +52,6 @@ export default function App() {
         setIsLoading(true);
         Promise.all([mainApi.getSavedMovies(), api.getMovies()])
           .then(([savedMoviesRes, moviesRes]) => {
-            console.log('films info');
             const newSavedMovies = savedMoviesRes.map((el) => {
               const newEl = el;
               newEl.saved = true;
@@ -79,16 +71,14 @@ export default function App() {
             setIsLoading(false);
           });
       }
-      setIsLoading(false);
       history.push(location.pathname);
     }
   }, [token]);
 
-  // пользователь логинится,
-  // при успешном ответе в сторадж помещается токен,
-  // получаем данные о фильмах с обоих апи,
-  // перенаправляем пользователя на страницу movies,
-  // loggedIn=true, isLoading=false
+  // auth
+  // success -> localStorage(token)
+  // get movies info from both APIs
+  // redirect to movies
   function handleLogin(data) {
     setIsLoading(true);
     auth.login(data)
@@ -109,6 +99,7 @@ export default function App() {
             localStorage.setItem('movies', JSON.stringify(filterSavedMoviesList));
             setSavedMovies(newSavedMovies);
             setMovies(filterSavedMoviesList);
+            setIsLoading(false);
           })
           .catch((err) => {
             console.log(err);
@@ -116,7 +107,6 @@ export default function App() {
           });
         setLoggedIn(true);
         history.push('/movies');
-        setIsLoading(false);
       })
       .catch((err) => {
         setError(`${err.message}`);
@@ -124,7 +114,7 @@ export default function App() {
       });
   }
 
-  // при успешной регистрации автоматически вызываем логин
+  // register success -> handleLogin()
   function handleRegister(data) {
     setIsLoading(true);
     auth.register(data)
@@ -140,6 +130,7 @@ export default function App() {
       });
   }
 
+  // clean storage and states when logout
   function handleSignOut() {
     setLoggedIn(false);
     localStorage.removeItem('token');
