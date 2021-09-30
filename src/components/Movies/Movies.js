@@ -7,6 +7,7 @@ import Search from '../Search/Search';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Button from '../Button/Button';
 import Preloader from '../Preloader/Preloader';
+import useWindowSize from '../../hooks/useWindowSize';
 
 export default function Movies({
   movies, setMovies, setSavedMovies, isLoading,
@@ -19,10 +20,17 @@ export default function Movies({
   const [slicedMovies, setSlicedMovies] = useState();
   const [initialColumn, setInitialColumn] = useState(3);
   const [column, setColumn] = useState(initialColumn);
+  const windowSize = useWindowSize();
 
   function handleMore() {
     setColumn(column + initialColumn);
   }
+
+  useEffect(() => {
+    if (windowSize >= 1280) setInitialColumn(3);
+    else if (windowSize >= 768 && windowSize < 1280) setInitialColumn(2);
+    else setInitialColumn(1);
+  }, [windowSize]);
 
   useEffect(() => {
     const stringFilter = movies.filter((movie) => {
