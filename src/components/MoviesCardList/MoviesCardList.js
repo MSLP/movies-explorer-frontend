@@ -2,7 +2,9 @@ import PropTypes from 'prop-types';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-export default function MoviesCardList({ movies, setSavedMovies, setMovies }) {
+export default function MoviesCardList({
+  movies, setSavedMovies, setMovies,
+}) {
   return (
     <div className="movies">
       {movies?.map((movie) => (

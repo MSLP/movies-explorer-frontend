@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Profile.css';
 import useForm from '../../hooks/useForm';
@@ -10,6 +10,10 @@ import Preloader from '../Preloader/Preloader';
 export default function Profile({ onClick, onSubmit, isLoading }) {
   const { values, handleChange, errors } = useForm();
   const user = useContext(CurrentUserContext);
+
+  useEffect(() => {
+    console.log('userInfo ', user);
+  }, [user]);
 
   function handleSubmit(e) {
     e.preventDefault();

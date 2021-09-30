@@ -7,7 +7,10 @@ class MainApi {
   getSavedMovies() {
     return fetch(`${this.baseUrl}/movies`, {
       method: 'GET',
-      headers: this.headers,
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
     })
       .then((res) => {
         if (res.ok) return res.json();
@@ -23,7 +26,10 @@ class MainApi {
   saveMovie(movie) {
     return fetch(`${this.baseUrl}/movies`, {
       method: 'POST',
-      headers: this.headers,
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
       body: JSON.stringify(movie),
     })
       .then((res) => {
@@ -37,7 +43,10 @@ class MainApi {
   deleteMovie(movieId) {
     return fetch(`${this.baseUrl}/movies/${movieId}`, {
       method: 'DELETE',
-      headers: this.headers,
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
     })
       .then((res) => {
         if (res.ok) return res.json();
@@ -50,7 +59,10 @@ class MainApi {
   getUserInfo() {
     return fetch(`${this.baseUrl}/users/me`, {
       method: 'GET',
-      headers: this.headers,
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
     })
       .then((res) => {
         if (res.ok) return res.json();
@@ -63,7 +75,10 @@ class MainApi {
   changeUserInfo(newInfo) {
     return fetch(`${this.baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: this.headers,
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
       body: JSON.stringify(newInfo),
     })
       .then((res) => {
@@ -77,8 +92,4 @@ class MainApi {
 
 export default new MainApi({
   baseUrl: 'https://api.explorer.mslp.nomoredomains.monster',
-  headers: {
-    'Content-Type': 'application/json',
-    authorization: `Bearer ${localStorage.getItem('token')}`,
-  },
 });

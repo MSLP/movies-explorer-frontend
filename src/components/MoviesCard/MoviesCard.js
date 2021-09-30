@@ -1,7 +1,8 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from '../Button/Button';
+import Preloader from '../Preloader/Preloader';
 import './MoviesCard.css';
 import api from '../../utils/MainApi';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
@@ -9,6 +10,7 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 export default function MoviesCard({
   movie, isSaved, setMovies, setSavedMovies,
 }) {
+  const [isLoading, setIsLoading] = useState(false);
   const user = useContext(CurrentUserContext);
   const location = useLocation();
   let buttonClassName = 'movie__button';
@@ -21,10 +23,9 @@ export default function MoviesCard({
 
   function toggleSave(e) {
     if (e.target.className.includes('delete') || e.target.className.includes('active')) {
-      console.log('toggleDelete', movie);
+      setIsLoading(true);
       api.deleteMovie(movie._id)
         .then(() => {
-          setSavedMovies((state) => state.filter((c) => c._id !== movie._id));
           const localSavedMovies = JSON.parse(localStorage.getItem('savedMovies'));
           const newLocalSavedMovies = localSavedMovies.filter((el) => el.movieId !== movie.movieId);
           localStorage.setItem('savedMovies', JSON.stringify(newLocalSavedMovies));
@@ -40,11 +41,13 @@ export default function MoviesCard({
               } return el;
             });
           localStorage.setItem('movies', JSON.stringify(newLocalMovies));
+          setSavedMovies(newLocalSavedMovies);
           setMovies(localMovies);
+          setIsLoading(false);
         })
         .catch((err) => console.log(err));
     } else {
-      console.log('toggleSave', movie);
+      setIsLoading(true);
       api.saveMovie({
         country: movie.country,
         director: movie.director,
@@ -64,7 +67,6 @@ export default function MoviesCard({
           const localSavedMovies = JSON.parse(localStorage.getItem('savedMovies'));
           localSavedMovies.push(res);
           localStorage.setItem('savedMovies', JSON.stringify(localSavedMovies));
-          setSavedMovies(localSavedMovies);
           const localMovies = JSON.parse(localStorage.getItem('movies'));
           const newLocalMovies = localMovies
             .map((el) => {
@@ -77,28 +79,35 @@ export default function MoviesCard({
               } return el;
             });
           localStorage.setItem('movies', JSON.stringify(newLocalMovies));
+          setSavedMovies(localSavedMovies);
           setMovies(newLocalMovies);
+          setIsLoading(false);
         })
         .catch((err) => console.log(err));
     }
   }
 
   return (
-    <div className="movie">
-      <div className="movie__header">
-        <div>
-          <h2 className="movie__title">{movie?.nameEN}</h2>
-          <p className="movie__duration">
-            {movie?.duration}
+    <>
+      {isLoading ? (<Preloader />)
+        : (
+          <div className="movie">
+            <div className="movie__header">
+              <div>
+                <h2 className="movie__title">{movie?.nameEN}</h2>
+                <p className="movie__duration">
+                  {movie?.duration}
             &nbsp;min
-          </p>
-        </div>
-        <Button onClick={toggleSave} className={buttonClassName} />
-      </div>
-      <a href={movie?.trailer} target="_blank" rel="noreferrer">
-        <img className="movie__img" src={movie?.image} alt="thumbnail" />
-      </a>
-    </div>
+                </p>
+              </div>
+              <Button onClick={toggleSave} className={buttonClassName} />
+            </div>
+            <a href={movie?.trailer} target="_blank" rel="noreferrer">
+              <img className="movie__img" src={movie?.image} alt="thumbnail" />
+            </a>
+          </div>
+        )}
+    </>
   );
 }
 

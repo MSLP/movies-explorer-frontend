@@ -13,5 +13,9 @@ export default ProtectedRoute;
 
 ProtectedRoute.propTypes = {
   component: PropTypes.elementType.isRequired,
-  loggedIn: PropTypes.bool.isRequired,
+  loggedIn: PropTypes.bool,
+};
+
+ProtectedRoute.defaultProps = {
+  loggedIn: false,
 };
