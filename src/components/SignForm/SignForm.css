@@ -91,10 +91,6 @@
   opacity: .7;
 }
 
-.sign__none {
-  visibility: hidden;
-}
-
 @media (max-width: 768px) {
   .sign {
     width: 51%;
