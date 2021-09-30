@@ -19,12 +19,17 @@ export default function Movies({
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [slicedMovies, setSlicedMovies] = useState();
   const [initialColumn, setInitialColumn] = useState(3);
-  const [column, setColumn] = useState(initialColumn);
+  const [row, setRow] = useState(1);
+  const [number, setNumber] = useState();
   const windowSize = useWindowSize();
 
   function handleMore() {
-    setColumn(column + initialColumn);
+    setRow(row + 1);
   }
+
+  useEffect(() => {
+    setNumber(initialColumn * row);
+  });
 
   useEffect(() => {
     if (windowSize >= 1280) setInitialColumn(3);
@@ -35,7 +40,6 @@ export default function Movies({
   useEffect(() => {
     const stringFilter = movies.filter((movie) => {
       if (!filter.length) return false;
-      setColumn(initialColumn);
       const searchableMovieName = movie.nameEN?.toLowerCase();
       return searchableMovieName?.includes(filter.trim().toLowerCase()) || false;
     });
@@ -51,8 +55,8 @@ export default function Movies({
   useEffect(() => {
     if (!filteredMovies?.length) setNothingFound(true);
     else {
-      if (filteredMovies.length > column) {
-        setSlicedMovies(filteredMovies.slice(0, column));
+      if (filteredMovies.length > number) {
+        setSlicedMovies(filteredMovies.slice(0, number));
         setNoMore(false);
       } else {
         setSlicedMovies(filteredMovies);
@@ -60,7 +64,7 @@ export default function Movies({
       }
       setNothingFound(false);
     }
-  }, [filteredMovies, column]);
+  }, [filteredMovies, number]);
 
   let block = <Preloader />;
   if (!isLoading) {
