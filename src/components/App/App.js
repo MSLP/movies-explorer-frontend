@@ -28,6 +28,30 @@ export default function App() {
   const history = useHistory();
   const location = useLocation();
 
+  // get movies from APIs and place them to localStorage
+  function getAllMovies() {
+    Promise.all([mainApi.getSavedMovies(), api.getMovies()])
+      .then(([savedMoviesRes, moviesRes]) => {
+        const newSavedMovies = savedMoviesRes.map((el) => {
+          const newEl = el;
+          newEl.saved = true;
+          return newEl;
+        });
+
+        const filterMovies = filterValidFields(moviesRes);
+        const filterSavedMoviesList = filterSavedMovies(filterMovies, newSavedMovies);
+        localStorage.setItem('savedMovies', JSON.stringify(newSavedMovies));
+        localStorage.setItem('movies', JSON.stringify(filterSavedMoviesList));
+        setSavedMovies(newSavedMovies);
+        setMovies(filterSavedMoviesList);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsLoading(false);
+      });
+  }
+
   // check token
   // if token -> get user info ->
   // check movies in storage -> get movies from storage or APIs
@@ -46,26 +70,7 @@ export default function App() {
             setMovies(JSON.parse(localMovies));
           } else {
             setIsLoading(true);
-            Promise.all([mainApi.getSavedMovies(), api.getMovies()])
-              .then(([savedMoviesRes, moviesRes]) => {
-                const newSavedMovies = savedMoviesRes.map((el) => {
-                  const newEl = el;
-                  newEl.saved = true;
-                  return newEl;
-                });
-
-                const filterMovies = filterValidFields(moviesRes);
-                const filterSavedMoviesList = filterSavedMovies(filterMovies, newSavedMovies);
-                localStorage.setItem('savedMovies', JSON.stringify(newSavedMovies));
-                localStorage.setItem('movies', JSON.stringify(filterSavedMoviesList));
-                setSavedMovies(newSavedMovies);
-                setMovies(filterSavedMoviesList);
-                setIsLoading(false);
-              })
-              .catch((err) => {
-                console.log(err);
-                setIsLoading(false);
-              });
+            getAllMovies();
           }
         })
         .catch((err) => {
@@ -91,26 +96,7 @@ export default function App() {
       .then((res) => {
         localStorage.setItem('token', res.token);
         setToken(res.token);
-        Promise.all([mainApi.getSavedMovies(), api.getMovies()])
-          .then(([savedMoviesRes, moviesRes]) => {
-            const newSavedMovies = savedMoviesRes.map((el) => {
-              const newEl = el;
-              newEl.saved = true;
-              return newEl;
-            });
-
-            const filterMovies = filterValidFields(moviesRes);
-            const filterSavedMoviesList = filterSavedMovies(filterMovies, newSavedMovies);
-            localStorage.setItem('savedMovies', JSON.stringify(newSavedMovies));
-            localStorage.setItem('movies', JSON.stringify(filterSavedMoviesList));
-            setSavedMovies(newSavedMovies);
-            setMovies(filterSavedMoviesList);
-            setIsLoading(false);
-          })
-          .catch((err) => {
-            console.log(err);
-            setIsLoading(false);
-          });
+        getAllMovies();
         setLoggedIn(true);
         history.push('/movies');
       })
