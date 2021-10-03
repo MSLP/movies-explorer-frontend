@@ -31,6 +31,22 @@ class Auth {
           .catch((newErr) => Promise.reject(new Error(`${newErr}`)));
       });
   }
+
+  checkToken(token) {
+    return fetch(`${this.baseUrl}/users/me`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (res.ok) return res.json();
+        return res.json()
+          .then((err) => Promise.reject(new Error(`${err.message}`)))
+          .catch((newErr) => Promise.reject(new Error(`${newErr}`)));
+      });
+  }
 }
 
 export default new Auth({
