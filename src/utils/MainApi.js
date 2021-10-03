@@ -18,8 +18,7 @@ class MainApi {
           .then((err) => {
             if (err.message.includes('movies')) return Promise.resolve([]);
             return Promise.reject(err.message);
-          })
-          .catch((newErr) => Promise.reject(new Error(`${newErr}`)));
+          });
       });
   }
 
@@ -35,8 +34,7 @@ class MainApi {
       .then((res) => {
         if (res.ok) return res.json();
         return res.json()
-          .then((err) => Promise.reject(err.message))
-          .catch((newErr) => Promise.reject(new Error(`${newErr}`)));
+          .then((err) => Promise.reject(err.message));
       });
   }
 
@@ -51,8 +49,7 @@ class MainApi {
       .then((res) => {
         if (res.ok) return res.json();
         return res.json()
-          .then((err) => Promise.reject(err.message))
-          .catch((newErr) => Promise.reject(new Error(`${newErr}`)));
+          .then((err) => Promise.reject(err.message));
       });
   }
 
@@ -67,8 +64,7 @@ class MainApi {
       .then((res) => {
         if (res.ok) return res.json();
         return res.json()
-          .then((err) => Promise.reject(err.message))
-          .catch((newErr) => Promise.reject(new Error(`${newErr}`)));
+          .then((err) => Promise.reject(err.message));
       });
   }
 
@@ -84,8 +80,7 @@ class MainApi {
       .then((res) => {
         if (res.ok) return res.json();
         return res.json()
-          .then((err) => Promise.reject(err.message))
-          .catch((newErr) => Promise.reject(new Error(`${newErr}`)));
+          .then((err) => Promise.reject(err.message));
       });
   }
 }

@@ -13,8 +13,7 @@ class Auth {
       .then((res) => {
         if (res.ok) return res.json();
         return res.json()
-          .then((err) => Promise.reject(new Error(`${err.message}`)))
-          .catch((newErr) => Promise.reject(new Error(`${newErr}`)));
+          .then((err) => Promise.reject(new Error(`${err.message}`)));
       });
   }
 
@@ -27,8 +26,7 @@ class Auth {
       .then((res) => {
         if (res.ok) return res.json();
         return res.json()
-          .then((err) => Promise.reject(new Error(`${err.message}`)))
-          .catch((newErr) => Promise.reject(new Error(`${newErr}`)));
+          .then((err) => Promise.reject(new Error(`${err.message}`)));
       });
   }
 
@@ -43,8 +41,7 @@ class Auth {
       .then((res) => {
         if (res.ok) return res.json();
         return res.json()
-          .then((err) => Promise.reject(new Error(`${err.message}`)))
-          .catch((newErr) => Promise.reject(new Error(`${newErr}`)));
+          .then((err) => Promise.reject(new Error(`${err.message}`)));
       });
   }
 }
