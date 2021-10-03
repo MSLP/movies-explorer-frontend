@@ -8,6 +8,9 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Button from '../Button/Button';
 import Preloader from '../Preloader/Preloader';
 import useWindowSize from '../../hooks/useWindowSize';
+import {
+  desktopSize, tabletSize, columnNumberDesktop, columnNumberTablet, columnNumberMobile, shortMovies,
+} from '../../config/constants';
 
 export default function Movies({
   movies, setMovies, setSavedMovies, isLoading,
@@ -17,24 +20,26 @@ export default function Movies({
   const [filter, setFilter] = useState('');
   const [toggle, setToggle] = useState(false);
   const [filteredMovies, setFilteredMovies] = useState([]);
-  const [slicedMovies, setSlicedMovies] = useState();
-  const [initialColumn, setInitialColumn] = useState(3);
+  const [slicedMovies, setSlicedMovies] = useState([]);
+  const [initialColumn, setInitialColumn] = useState(0);
   const [row, setRow] = useState(1);
-  const [number, setNumber] = useState();
+  const [number, setNumber] = useState(0);
   const windowSize = useWindowSize();
 
+  // more button -> increase number of rows by one
   function handleMore() {
     setRow(row + 1);
   }
 
   useEffect(() => {
     setNumber(initialColumn * row);
-  });
+  }, [initialColumn, row]);
 
   useEffect(() => {
-    if (windowSize >= 1280) setInitialColumn(3);
-    else if (windowSize >= 768 && windowSize < 1280) setInitialColumn(2);
-    else setInitialColumn(1);
+    if (windowSize >= desktopSize) setInitialColumn(columnNumberDesktop);
+    else if (windowSize >= tabletSize && windowSize < desktopSize) {
+      setInitialColumn(columnNumberTablet);
+    } else setInitialColumn(columnNumberMobile);
   }, [windowSize]);
 
   useEffect(() => {
@@ -46,7 +51,7 @@ export default function Movies({
     if (toggle) {
       const toggleFilter = stringFilter.filter((movie) => {
         const searchableMovieTime = movie.duration;
-        return searchableMovieTime <= 40;
+        return searchableMovieTime <= shortMovies;
       });
       setFilteredMovies(toggleFilter);
     } else setFilteredMovies(stringFilter);
