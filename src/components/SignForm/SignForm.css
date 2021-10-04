@@ -67,6 +67,10 @@
   opacity: .8;
 }
 
+.sign__submit:disabled {
+  opacity: .8;
+}
+
 .sign__text {
   margin: 0;
   padding-top: 16px;
@@ -85,10 +89,6 @@
 
 .sign__link:hover {
   opacity: .7;
-}
-
-.sign__none {
-  visibility: hidden;
 }
 
 @media (max-width: 768px) {

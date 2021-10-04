@@ -63,6 +63,10 @@
   text-align: center;
 }
 
+.profile__edit:disabled {
+  opacity: .8;
+}
+
 .profile__logout {
   width: 100%;
   padding: 0;

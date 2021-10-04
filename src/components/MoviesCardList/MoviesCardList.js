@@ -2,24 +2,32 @@ import PropTypes from 'prop-types';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-export default function MoviesCardList({ isSaved }) {
+export default function MoviesCardList({
+  movies, setSavedMovies, setMovies,
+}) {
   return (
     <div className="movies">
-      <MoviesCard isSaved={isSaved} />
-      <MoviesCard isSaved={isSaved} />
-      <MoviesCard isActive isSaved={isSaved} />
-      <MoviesCard isSaved={isSaved} />
-      <MoviesCard isActive isSaved={isSaved} />
-      <MoviesCard isSaved={isSaved} />
-      <MoviesCard isSaved={isSaved} />
+      {movies?.map((movie) => (
+        <MoviesCard
+          key={movie?.id || movie?.movieId}
+          movie={movie}
+          isSaved={movie?.saved}
+          setSavedMovies={setSavedMovies}
+          setMovies={setMovies}
+        />
+      ))}
     </div>
   );
 }
 
 MoviesCardList.propTypes = {
-  isSaved: PropTypes.bool,
+  movies: PropTypes.arrayOf(PropTypes.object),
+  setMovies: PropTypes.func,
+  setSavedMovies: PropTypes.func,
 };
 
 MoviesCardList.defaultProps = {
-  isSaved: false,
+  movies: [{}],
+  setMovies: () => {},
+  setSavedMovies: () => {},
 };
